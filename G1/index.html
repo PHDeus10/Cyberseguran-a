@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Online SENAI-SP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="tech-bg"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <h1>SENAI</h1>
+            <div class="subtitle">EDUCAÇÃO<br>ONLINE</div>
+        </div>
+        
+        <div class="content">
+                        
+            <hr>
+            
+            
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="loginButton">Entrar</button>
+            <p id="error-message"></p>
+        </form>
+    </div>
+        </div>
+        
+        <div class="footer">
+            SENAI
+        </div>
+    </div>
+
+    <script>
+    // Animação tecnológica de fundo
+    const canvas = document.getElementById('tech-bg');
+    const ctx = canvas.getContext('2d');
+    
+    // Configurar canvas para ocupar toda a tela
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Configurações da animação
+    const particles = [];
+    const particleCount = 80;
+    const connectionDistance = 150;
+    const colors = [
+        '#b77364', // Audácia
+        '#b77364', // Erudição
+        '#b77364', // Amizade
+        '#b77364', // Franqueza
+        '#b77364'  // Abnegação
+    ];
+    
+    // Classe para partículas
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 2 + 1;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            
+            // Rebater nas bordas
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    }
+    
+    // Criar partículas
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+    
+    // Função para desenhar conexões entre partículas
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < connectionDistance) {
+                    const opacity = 1 - (distance / connectionDistance);
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(230, 126, 34, ${opacity * 0.3})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    
+    // Loop de animação
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Desenhar gradiente de fundo sutil sobre a imagem
+        const gradient = ctx.createRadialGradient(
+            canvas.width / 2, canvas.height / 2, 0,
+            canvas.width / 2, canvas.height / 2, canvas.width / 1.5
+        );
+        gradient.addColorStop(0, 'rgba(15, 16, 20, 0.3)');
+        gradient.addColorStop(1, 'rgba(5, 5, 7, 0.5)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Atualizar e desenhar partículas
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+        
+        // Desenhar conexões
+        drawConnections();
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Iniciar animação
+    animate();
+    
+    // Efeito de brilho pulsante no container
+    const container = document.querySelector('.container');
+    setInterval(() => {
+        const intensity = 0.3 + Math.random() * 0.2;
+        container.style.boxShadow = `0 0 ${20 + intensity * 10}px rgba(230, 126, 34, ${intensity})`;
+    }, 2000);
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

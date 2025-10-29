@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  senai-portal:
+    build: .
+    ports:
+      - "50052:80"
+    container_name: senai-portal-online
+    restart: unless-stopped
