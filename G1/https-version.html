@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Seguro SENAI-SP</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .security-approved {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        
+        .real-certificate {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .educational-content .safe-item {
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .educational-content .safe-item h4 {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="security-approved">HTTPS - CONEXÃO SEGURA 🔒</div>
+    
+    <canvas id="tech-bg"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <h1>SENAI</h1>
+            <div class="subtitle">EDUCAÇÃO<br>ONLINE</div>
+        </div>
+        
+        <div class="content">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <span class="real-certificate">🔒 Certificado SSL Válido</span>
+            </div>
+            
+            <div class="login-container">
+                <h2>Login do Portal</h2>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Usuário:</label>
+                        <input type="text" id="username" name="username" required placeholder="Digite seu CPF ou matrícula">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required placeholder="Sua senha de acesso">
+                    </div>
+                    <button type="submit" id="loginButton">Entrar no Sistema</button>
+                    <p id="error-message"></p>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer">
+            SENAI - Serviço Nacional de Aprendizagem Industrial
+        </div>
+    </div>
+
+    <!-- Tela educativa sobre segurança -->
+    <div class="educational-screen" id="educationalScreen">
+        <div class="educational-content">
+            <h2>✅ PÁGINA SEGURA - EXEMPLO DE HTTPS</h2>
+            
+            <div class="warning-item safe-item">
+                <h4>🔒 Esta é uma simulação de página segura</h4>
+                <p>Nenhuma senha foi coletada. Esta versão demonstra os elementos de uma conexão segura.</p>
+            </div>
+
+            <div class="warning-item safe-item">
+                <h4>🌐 URL Segura</h4>
+                <div class="url-display" style="color: #4CAF50;">https://sesisenai.sp.senai.br (OFICIAL E SEGURO)</div>
+                <p>URLs oficiais do SENAI usam HTTPS indicando conexão criptografada e segura.</p>
+            </div>
+
+            <div class="warning-item safe-item">
+                <h4>🔐 Certificado SSL Válido</h4>
+                <p>Esta página simula o uso de HTTPS com certificado SSL válido, protegendo os dados transmitidos.</p>
+            </div>
+
+            <div class="warning-item">
+                <h4>🆚 Comparação: HTTP vs HTTPS</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr style="background: #333;">
+                        <th style="padding: 10px; text-align: left;">Característica</th>
+                        <th style="padding: 10px; text-align: left;">HTTP (Inseguro)</th>
+                        <th style="padding: 10px; text-align: left;">HTTPS (Seguro)</th>
+                    </tr>
+                    <tr style="background: #2a2a2a;">
+                        <td style="padding: 10px;">Criptografia</td>
+                        <td style="padding: 10px; color: #ff6b6b;">❌ Nenhuma</td>
+                        <td style="padding: 10px; color: #4CAF50;">✅ Total</td>
+                    </tr>
+                    <tr style="background: #2a2a2a;">
+                        <td style="padding: 10px;">Autenticidade</td>
+                        <td style="padding: 10px; color: #ff6b6b;">❌ Não verificada</td>
+                        <td style="padding: 10px; color: #4CAF50;">✅ Verificada</td>
+                    </tr>
+                    <tr style="background: #2a2a2a;">
+                        <td style="padding: 10px;">Integridade</td>
+                        <td style="padding: 10px; color: #ff6b6b;">❌ Vulnerável</td>
+                        <td style="padding: 10px; color: #4CAF50;">✅ Protegida</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="warning-item safe-item">
+                <h4>🛡️ Por que HTTPS é importante?</h4>
+                <ul>
+                    <li>Protege suas senhas e dados pessoais</li>
+                    <li>Previne interceptação de informações</li>
+                    <li>Garante que está no site oficial</li>
+                    <li>Evita ataques de "man-in-the-middle"</li>
+                </ul>
+            </div>
+
+            <button class="close-btn" onclick="closeEducationalScreen()" style="background: #4CAF50;">Entendi a Importância do HTTPS</button>
+        </div>
+    </div>
+
+    <script src="animation.js"></script>
+    <script>
+        // Sistema educativo - versão HTTPS
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            showEducationalScreen();
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        });
+
+        function showEducationalScreen() {
+            document.getElementById('educationalScreen').style.display = 'block';
+        }
+
+        function closeEducationalScreen() {
+            document.getElementById('educationalScreen').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeEducationalScreen();
+            }
+        });
+    </script>
+</body>
+</html>

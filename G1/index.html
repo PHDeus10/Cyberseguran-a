@@ -3,10 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Online SENAI-SP</title>
+    <title>Portal Educacional SENAI-SP</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .additional-options {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .secondary-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #0055a4 0%, #003366 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .secondary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 85, 164, 0.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <div class="security-warning">HTTP - CONEXÃO NÃO SEGURA</div>
+    
     <canvas id="tech-bg"></canvas>
     
     <div class="container">
@@ -16,148 +61,141 @@
         </div>
         
         <div class="content">
-                        
-            <hr>
+            <!-- Erro ortográfico proposital -->
+            <div class="typo-error">* Campos obrigatórios devem ser preenchidos corretamente</div>
             
+            <hr style="margin: 20px 0;">
             
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="username">Usuário:</label>
-                <input type="text" id="username" name="username" required>
+            <div class="login-container">
+                <h2>Login do Portal</h2>
+                <!-- Certificado falso -->
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <span class="fake-certificate">🔒 Certificado de Segurança</span>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Usuário:</label>
+                        <input type="text" id="username" name="username" required placeholder="Digite seu CPF ou matrícula">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required placeholder="Sua senha de acesso">
+                    </div>
+                    <button type="submit" id="loginButton">Entrar no Sistema</button>
+                    <p id="error-message"></p>
+                </form>
+                
+                <!-- Opções adicionais -->
+                <div class="additional-options">
+                    <div class="info-text">Outras opções de acesso</div>
+                    <div class="btn-group">
+                        <button class="secondary-btn" onclick="accessSecureVersion()">
+                            📚 Versão Segura
+                        </button>
+                        <button class="secondary-btn" onclick="accessStudentPortal()">
+                            🎓 Portal do Aluno
+                        </button>
+                        <button class="secondary-btn" onclick="accessCourses()">
+                            📖 Cursos Online
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <a href="https-version.html" class="secondary-btn" style="text-decoration: none;">
+                            🔐 Comparar HTTPS
+                        </a>
+                        <button class="secondary-btn" onclick="showHelp()">
+                            ❓ Ajuda
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="input-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" id="loginButton">Entrar</button>
-            <p id="error-message"></p>
-        </form>
-    </div>
         </div>
         
         <div class="footer">
-            SENAI
+            SENAI - Serviço Nacional de Aprendizagem Industrial
         </div>
     </div>
 
-    <script>
-    // Animação tecnológica de fundo
-    const canvas = document.getElementById('tech-bg');
-    const ctx = canvas.getContext('2d');
-    
-    // Configurar canvas para ocupar toda a tela
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    // Configurações da animação
-    const particles = [];
-    const particleCount = 80;
-    const connectionDistance = 150;
-    const colors = [
-        '#b77364', // Audácia
-        '#b77364', // Erudição
-        '#b77364', // Amizade
-        '#b77364', // Franqueza
-        '#b77364'  // Abnegação
-    ];
-    
-    // Classe para partículas
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 2 + 1;
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-        }
-        
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
+    <!-- Tela educativa sobre phishing -->
+    <div class="educational-screen" id="educationalScreen">
+        <div class="educational-content">
+            <h2>🚨 ALERTA DE SEGURANÇA - PÁGINA FALSA DETECTADA 🚨</h2>
             
-            // Rebater nas bordas
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
-        
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-        }
-    }
-    
-    // Criar partículas
-    for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-    }
-    
-    // Função para desenhar conexões entre partículas
-    function drawConnections() {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < connectionDistance) {
-                    const opacity = 1 - (distance / connectionDistance);
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(230, 126, 34, ${opacity * 0.3})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-    }
-    
-    // Loop de animação
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Desenhar gradiente de fundo sutil sobre a imagem
-        const gradient = ctx.createRadialGradient(
-            canvas.width / 2, canvas.height / 2, 0,
-            canvas.width / 2, canvas.height / 2, canvas.width / 1.5
-        );
-        gradient.addColorStop(0, 'rgba(15, 16, 20, 0.3)');
-        gradient.addColorStop(1, 'rgba(5, 5, 7, 0.5)');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Atualizar e desenhar partículas
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
-        });
-        
-        // Desenhar conexões
-        drawConnections();
-        
-        requestAnimationFrame(animate);
-    }
-    
-    // Iniciar animação
-    animate();
-    
-    // Efeito de brilho pulsante no container
-    const container = document.querySelector('.container');
-    setInterval(() => {
-        const intensity = 0.3 + Math.random() * 0.2;
-        container.style.boxShadow = `0 0 ${20 + intensity * 10}px rgba(230, 126, 34, ${intensity})`;
-    }, 2000);
-    </script>
+            <div class="warning-item">
+                <h4>🔍 Esta é uma página educativa sobre phishing</h4>
+                <p>Nenhuma senha foi coletada. Esta simulação demonstra como identificar tentativas de phishing.</p>
+            </div>
+
+            <div class="warning-item">
+                <h4>🌐 URL Suspeita</h4>
+                <div class="url-display">http://senai-portal-login.com.br (NÃO OFICIAL)</div>
+                <p>URLs oficiais do SENAI usam HTTPS e domínios como ".senai.br" ou ".sesisenai.com.br"</p>
+            </div>
+
+            <div class="warning-item">
+                <h4>🔒 Certificado de Segurança Inexistente</h4>
+                <p>Esta página usa HTTP (não seguro) em vez de HTTPS. O "certificado" mostrado é falso.</p>
+            </div>
+
+            <div class="warning-item">
+                <h4>📝 Erros e Incoerências</h4>
+                <ul>
+                    <li>Erro ortográfico proposital no texto de ajuda</li>
+                    <li>Design que imita mas não é idêntico ao oficial</li>
+                    <li>Certificado de segurança falso</li>
+                    <li>Falta de selos oficiais de segurança</li>
+                    <li>Múltiplos botões que podem levar a páginas falsas</li>
+                </ul>
+            </div>
+
+            <div class="warning-item">
+                <h4>🛡️ Como se Proteger</h4>
+                <ul>
+                    <li>Sempre verifique se a URL começa com "https://"</li>
+                    <li>Procure o cadeado de segurança no navegador</li>
+                    <li>Desconfie de páginas que pedem muitos dados pessoais</li>
+                    <li>Verifique erros de ortografia e design inconsistente</li>
+                    <li>Acesse sites apenas por links oficiais</li>
+                    <li>Desconfie de páginas com muitos botões e opções suspeitas</li>
+                </ul>
+            </div>
+
+            <div class="btn-group" style="margin-top: 20px;">
+                <button class="close-btn" onclick="closeEducationalScreen()">Entendi os Riscos</button>
+                <button class="secondary-btn" onclick="accessSecureVersion()" style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);">
+                    🔒 Acessar Versão Segura
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="animation.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Funções para os botões adicionais
+        function accessSecureVersion() {
+            // Simula redirecionamento para versão segura
+            alert("🔐 Esta ação demonstraria o redirecionamento para uma versão HTTPS segura.\n\nEm um cenário real de phishing, este botão poderia levar para outra página falsa!");
+            // window.location.href = 'https-version.html'; // Descomente para redirecionar de verdade
+        }
+        
+        function accessStudentPortal() {
+            alert("🎓 Esta ação demonstraria o acesso ao portal do aluno.\n\nEm phishing, botões extras são usados para dar aparência de legitimidade!");
+        }
+        
+        function accessCourses() {
+            alert("📖 Esta ação demonstraria o acesso aos cursos online.\n\nObserve como páginas falsas frequentemente têm múltiplas opções!");
+        }
+        
+        function showHelp() {
+            alert("❓ Páginas de phishing frequentemente incluem opções de 'Ajuda' para parecerem mais legítimas.\n\nSempre verifique a URL e o certificado SSL!");
+        }
+        
+        // Adicionar esta função ao script.js também
+        function closeEducationalScreen() {
+            document.getElementById('educationalScreen').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
